@@ -1,0 +1,910 @@
+\documentclass{article}
+
+\begin{document}
+
+<<>>=
+source("clusteringtesting.R")
+@
+
+
+
+<<>>=
+for(i in 1:5){
+  for(j in 9:15){
+    
+  }
+}
+@
+
+
+
+
+Test for 5 years
+<<>>=
+years = 5
+testyear = 15
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 14
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 13
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 12
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+testyear = 11
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+@
+
+
+Test for 4 years
+<<>>=
+years = 4
+testyear = 15
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 14
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 13
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 12
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+testyear = 11
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+@
+
+Test for 3 years
+<<>>=
+years = 3
+testyear = 15
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 14
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 13
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 12
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+testyear = 11
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+@
+
+
+Test for 2 years
+<<>>=
+years = 2
+testyear = 15
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 14
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 13
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 12
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+testyear = 11
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+@
+
+
+Test for 1 years
+<<>>=
+years = 1
+testyear = 15
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 14
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 13
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+
+testyear = 12
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+
+testyear = 11
+
+out3 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7 = evaluateclusters(electiondata, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+out3_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m3, labelvec = label3)
+out4_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m4, labelvec = label4)
+out5_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m5, labelvec = label5)
+out7_nodc = evaluateclusters(electiondata_nodc, years, evalyearloc = testyear, cutoffmat = m7, labelvec = label7)
+
+min(out3$results$ae)
+min(out3_nodc$results$ae)
+out3$results[which.min(out3$results$ae), ]
+out3_nodc$results[which.min(out3_nodc$results$ae), ]
+
+min(out4$results$ae)
+min(out4_nodc$results$ae)
+out4$results[which.min(out4$results$ae), ]
+out4_nodc$results[which.min(out4_nodc$results$ae), ]
+
+min(out5$results$ae)
+min(out5_nodc$results$ae)
+out5$results[which.min(out5$results$ae), ]
+out5_nodc$results[which.min(out5_nodc$results$ae), ]
+
+
+
+min(out7$results$ae)
+min(out7_nodc$results$ae)
+out7$results[which.min(out7$results$ae), ]
+out7_nodc$results[which.min(out7_nodc$results$ae), ]
+@
+
+\end{document}

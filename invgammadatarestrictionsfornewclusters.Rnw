@@ -1,0 +1,269 @@
+\documentclass{article}
+
+\begin{document}
+
+Fitting
+\documentclass{article}
+
+\begin{document}
+
+
+Comparision and Checking for  
+<<>>=
+library(bayesurvey)
+library(politicaldata)
+library(MCMCpack)
+polldata = read.csv("PollingDataSetStateLevelOnly7-17-20.csv")
+polldata = polldata[polldata$sample_subpopulation %in% c("LV", "RV", "Likely Voters", "Registered Voters"), ]
+polls2008 = subset(polldata, Year == "2008")
+polls2008 = polls2008[complete.cases(polls2008[, c("Obama2008", "McCain", "observations", "end_date")]),]
+polls2012 = subset(polldata, Year == "2012")
+polls2012 = polls2012[complete.cases(polls2012[, c("Obama2012", "Romney", "observations", "end_date")]),]
+polls2016 = subset(polldata, Year == "2016")
+polls2016 = polls2016[complete.cases(polls2016[, c("Trump", "Clinton", "observations", "end_date")]),]
+elect1992  = subset(pres_results , year == 1992)
+elect1992$margin = elect1992$dem - elect1992$rep
+elect1996  = subset(pres_results , year == 1996)
+elect1996$margin = elect1996$dem - elect1996$rep
+elect2000  = subset(pres_results , year == 2000)
+elect2000$margin = elect2000$dem - elect2000$rep
+elect2004 = subset(pres_results , year == 2004)
+elect2004$margin = elect2004$dem - elect2004$rep
+elect2008  = subset(pres_results , year == 2008)
+elect2008$margin = elect2008$dem - elect2008$rep
+elect2012 = subset(pres_results , year == 2012)
+elect2012$margin = elect2012$dem - elect2012$rep
+elect2016 = subset(pres_results , year == 2016)
+elect2016$margin = elect2016$dem - elect2016$rep
+electdata = data.frame("state" = elect2008$state, "1992" =elect1992$margin, "1996" =elect1996$margin, "2000" = elect2000$margin, "2004" = elect2004$margin, "2008" =  elect2008$margin, "2012" = elect2012$margin)
+@
+
+<<>>=
+#states2008 = sort(as.character(unique(polls2008$State)))
+#states2012 = sort(unique(polls2012$State))
+#states2016 = sort(unique(polls2016$State))
+
+
+elect2008 = propnormdfreplace(elect2008, c(4,5))
+elect2012 = propnormdfreplace(elect2012, c(4,5))
+elect2016 = propnormdfreplace(elect2016, c(4,5))
+results2008 = elect2008[, c(2, 4)]
+results2008$state = as.factor(results2008$state)
+#results2008 = results2008[elect2008$state %in% states2008,]
+results2012 = elect2012[, c(2, 4)]
+results2012$state = as.factor(results2012$state)
+#results2008 = results2012[elect2012$state %in% states2012,]
+results2016 = elect2016[, c(2, 4)]
+results2016$state = as.factor(results2016$state)
+#results2016 = results2016[elect2016$state %in% states2016,]
+marginresults2008 = elect2008[, c(2, 7)]
+marginresults2008$margin = 100*marginresults2008$margin
+marginresults2008$state = as.factor(marginresults2008$state)
+marginresults2012 = elect2012[, c(2, 7)]
+marginresults2012$margin = 100*marginresults2012$margin
+marginresults2012$state = as.factor(marginresults2012$state)
+marginresults2016 = elect2016[, c(2, 7)]
+marginresults2016$state = as.factor(marginresults2016$state)
+marginresults2016$margin = 100*marginresults2016$margin
+
+@
+
+
+
+<<>>=
+    polldatatemp = subset(polldata, polldata$EndDaysUntil < 30)
+    polls2008temp = subset(polldatatemp, Year == "2008")
+    polls2008temp = polls2008temp[complete.cases(polls2008temp[, c("Obama2008", "McCain", "observations","end_date")]),]
+    polls2012temp = subset(polldatatemp, Year == "2012")
+    polls2012temp = polls2012temp[complete.cases(polls2012temp[, c("Obama2012", "Romney", "observations", "end_date")]),]
+    polls2016temp = subset(polldatatemp, Year == "2016")
+    polls2016temp = polls2016temp[complete.cases(polls2016temp[, c("Trump", "Clinton", "observations", "end_date")]),]
+    polls2008ratemp = noniterativegaussianmodelprop(polls2008temp, stateloc = 16, proploc = c(9, 10), candidateloc = 10, nloc = 12, dateloc = 5,   npolls = 5, invgamma = T, v0=1, a0=0.0001, b0=0.0001,  election_data = electdata[, 4:5 ], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    polls2012ratemp = noniterativegaussianmodelprop(polls2012temp, stateloc = 16, proploc = c(34, 35), candidateloc = 35,  nloc = 12, dateloc = 5, npolls = 5,invgamma = T, v0=1, a0=0.0001, b0=0.0001,  election_data = electdata[c(1, 5:6)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    polls2016ratemp = noniterativegaussianmodelprop(polls2016temp, stateloc = 16, proploc = c(44, 45), candidateloc = 45, nloc = 12, dateloc = 5, npolls = 5, invgamma = T, v0=1, a0=0.0001, b0=0.0001, election_data = electdata[c(1, 6:7)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    error2008ra = ae_by_state(polls2008ratemp[-8, 1:2], results2008[-8, ])
+    error2012ra = ae_by_state(polls2012ratemp[-8, 1:2], results2012[-8, ])
+    error2016ra = ae_by_state(polls2016ratemp[-8, 1:2], results2016[-8, ])
+ae2008all = mean(error2008ra[,2])
+ae2012all = mean(error2012ra[,2])
+ae2016all = mean(error2016ra[,2])
+ae2008comp = mean(error2008ra[error2008ra[,1 ] %in% comp2008,2])
+ae2012comp = mean(error2012ra[error2012ra[,1 ] %in% comp2012,2])
+ae2016comp = mean(error2016ra[error2016ra[,1 ] %in% comp2016,2])
+mean(c(ae2008all, ae2012all, ae2016all))
+mean(c(ae2008comp, ae2012comp, ae2016comp))
+c(ae2008all, ae2012all, ae2016all)
+c(ae2008comp, ae2012comp, ae2016comp)
+cicoverage2008 = sum(polls2008ratemp$Margin.of.Error>ae_by_state(polls2008ratemp[, 1:2], results2008)[,2])/51
+cicoverage2012 = sum(polls2012ratemp$Margin.of.Error>ae_by_state(polls2012ratemp[, 1:2], results2012)[,2])/51
+cicoverage2016 = sum(polls2016ratemp$Margin.of.Error>ae_by_state(polls2016ratemp[, 1:2], results2016)[,2])/51
+mean(c(cicoverage2008, cicoverage2012, cicoverage2016))
+c(cicoverage2008, cicoverage2012, cicoverage2016)
+cbind(polls2008ratemp$Margin.of.Error,ae_by_state(polls2008ratemp[, 1:2], results2008))
+cbind(polls2012ratemp$Margin.of.Error,ae_by_state(polls2012ratemp[, 1:2], results2012))
+cbind(polls2016ratemp$Margin.of.Error,ae_by_state(polls2016ratemp[, 1:2], results2016))
+@
+
+Loop 
+
+<<>>=
+library(bayesurvey)
+mat2008inv  = matrix(NA, nrow = 20 , ncol = 11)
+mat2012inv  =  matrix(NA, nrow = 20 , ncol = 11)
+mat2016inv  =  matrix(NA, nrow = 20 , ncol = 11)
+matavgallinv  =  matrix(NA, nrow = 20 , ncol = 11)
+mat2008compinv  = matrix(NA, nrow = 20 , ncol = 11)
+mat2012compinv  = matrix(NA, nrow = 20 , ncol = 11)
+mat2016compinv  = matrix(NA, nrow = 20 , ncol = 11)
+mat2008noncompinv  = matrix(NA, nrow = 20 , ncol = 11)
+mat2012noncompinv  = matrix(NA, nrow = 20 , ncol = 11)
+mat2016noncompinv  = matrix(NA, nrow = 20 , ncol = 11)
+comp2008 = elect2008$state[which(abs(elect2008$margin) < 0.05)]
+comp2012 = elect2012$state[which(abs(elect2012$margin) < 0.05)]
+comp2016 = elect2016$state[which(abs(elect2016$margin) < 0.05)]
+noncomp2008 = elect2008$state[which(abs(elect2008$margin) > 0.05)]
+noncomp2012 = elect2012$state[which(abs(elect2012$margin) > 0.05)]
+noncomp2016 = elect2016$state[which(abs(elect2016$margin) > 0.05)]
+days5 = seq(5, 100, by = 5)
+#days7 = seq(7, 140, by = 7)\
+stateswithpolls2008 = sort(unique(polls2008$State))
+stateswithpolls2012 = sort(unique(polls2012$State))
+stateswithpolls2016 = sort(unique(polls2016$State))
+for(i in 1:20){
+  for(j in 5:15){
+    polldatatemp = subset(polldata, polldata$EndDaysUntil < days5[i])
+    polls2008temp = subset(polldatatemp, Year == "2008")
+    polls2008temp = polls2008temp[complete.cases(polls2008temp[, c("Obama2008", "McCain", "observations","end_date")]),]
+    polls2012temp = subset(polldatatemp, Year == "2012")
+    polls2012temp = polls2012temp[complete.cases(polls2012temp[, c("Obama2012", "Romney", "observations", "end_date")]),]
+    polls2016temp = subset(polldatatemp, Year == "2016")
+    polls2016temp = polls2016temp[complete.cases(polls2016temp[, c("Trump", "Clinton", "observations", "end_date")]),]
+    polls2008ratemp = noniterativegaussianmodelprop(polls2008temp, stateloc = 17, proploc = c(9, 10), candidateloc = 10, nloc = 12, dateloc = 5,   npolls = j, invgamma = T, v0=1, a0=0.0001, b0=0.0001, election_data = electdata[, c(1,4:5)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    polls2012ratemp = noniterativegaussianmodelprop(polls2012temp, stateloc = 17, proploc = c(34, 35), candidateloc = 35,  nloc = 12, dateloc = 5, npolls = j,invgamma = T, v0=1, a0=0.0001, b0=0.0001, election_data = electdata[c(1, 5:6)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    polls2016ratemp = noniterativegaussianmodelprop(polls2016temp, stateloc = 17, proploc = c(44, 45), candidateloc = 45, nloc = 12, dateloc = 5, npolls = j, invgamma = T, v0=1, a0=0.0001, b0=0.0001,  election_data = electdata[c(1, 6:7)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    error2008ra = ae_by_state(polls2008ratemp[, 1:2], results2008[-8, ])
+    error2012ra = ae_by_state(polls2012ratemp[, 1:2], results2012[-8, ])
+    error2016ra = ae_by_state(polls2016ratemp[, 1:2], results2016[-8, ])
+    mat2008inv [i, j-4] = mean(error2008ra[, 3])
+    mat2012inv [i, j-4] = mean(error2012ra[, 3])
+    mat2016inv [i, j-4] = mean(error2016ra[, 3])
+    mat2008compinv [i, j-4] = mean(error2008ra[error2008ra[,1]  %in% comp2008, 3])
+    mat2012compinv [i, j-4] = mean(error2012ra[error2012ra[,1]  %in% comp2012, 3])
+    mat2016compinv [i, j-4] = mean(error2016ra[error2016ra[,1]  %in% comp2016, 3])
+    mat2008noncompinv [i, j-4] = mean(error2008ra[error2008ra[,1]  %in% noncomp2008, 3])
+    mat2012noncompinv [i, j-4] = mean(error2012ra[error2012ra[,1]  %in% noncomp2012, 3])
+    mat2016noncompinv [i, j-4] = mean(error2016ra[error2016ra[,1]  %in% noncomp2016, 3])
+    #matavgall[i,j] = mean(mat2008[i,j], mat2012[i,j], mat2016[i,j])
+  }
+}
+matlistinv  = list(mat2008inv , mat2012inv , mat2016inv )
+matlistcompinv  = list(mat2008compinv , mat2012compinv , mat2016compinv ) 
+matlistnoncompinv  = list(mat2008noncompinv , mat2012noncompinv , mat2016noncompinv ) 
+matavgallinv  = Reduce("+", matlistinv )/3
+matavgallcompinv  = Reduce("+", matlistcompinv )/3
+matavgallnoncompinv  = Reduce("+", matlistnoncompinv )/3
+@
+
+
+What we want low year to year variation and low year to year error. Metric MSE = bias^2 + variance
+Average of noncompetitive and competitive (want much heavier weight to competitive realitive to state size)
+
+<<>>=
+rbind(colMeans(mat2008inv ),colMeans(mat2012inv, na.rm = T), colMeans(mat2016inv ), colMeans(rbind(colMeans(mat2008inv ),colMeans(mat2012inv, na.rm = T), colMeans(mat2016inv ))))
+rbind(rowMeans(mat2008inv ), rowMeans(mat2012inv), rowMeans(mat2016inv ), colMeans(rbind(rowMeans(mat2008inv ), rowMeans(mat2012inv ), rowMeans(mat2016inv))))
+@
+
+<<>>=
+
+varmatinv  = matrix(NA, nrow = 20 , ncol = 11)
+varmatcompinv  = matrix(NA, nrow = 20 , ncol = 11)
+varmatnoncompinv  = matrix(NA, nrow = 20 , ncol = 11)
+for(i in 1:20){
+  for(j in 1:11){
+    varmatinv [i, j] = var(c(mat2008inv [i,j],mat2012inv [i,j],mat2016inv [i,j] ))
+    varmatcompinv [i, j] = var(c(mat2008compinv [i,j],mat2012compinv [i,j],mat2016compinv [i,j] ))
+    varmatnoncompinv [i, j] = var(c(mat2008noncompinv [i,j],mat2012noncompinv [i,j],mat2016noncompinv [i,j] ))
+  }
+}
+
+msematinv  = varmatinv  + matavgallinv ^2
+msematcompinv  = varmatcompinv  + matavgallcompinv ^2
+msematnoncompinv  = varmatnoncompinv  + matavgallnoncompinv 
+matfinallistinv  = list(msematcompinv , msematnoncompinv )
+msematfinalinv  = Reduce("+", matfinallistinv )/2
+
+
+@
+
+
+
+<<>>=
+which.min(msematcompinv [2:20, ])
+which.min(msematnoncompinv [2:20,])
+min(msematcompinv [2:20, ])
+min(msematnoncompinv [2:20,])
+which.min(msematfinalinv [2:20,])
+min(msematfinalinv [2:20,])
+@
+
+
+<<>>=
+pollslast25 = polldata[polldata$EndDaysUntil < 25,]
+table(pollslast25$State, pollslast25$Year)
+pollslast30 = polldata[polldata$EndDaysUntil < 30,]
+table(pollslast30$State, pollslast30$Year)
+pollslast35 = polldata[polldata$EndDaysUntil < 35,]
+table(pollslast35$State, pollslast35$Year)
+pollslast40 = polldata[polldata$EndDaysUntil < 40,]
+table(pollslast40$State, pollslast40$Year)
+pollslast45 = polldata[polldata$EndDaysUntil < 45,]
+table(pollslast45$State, pollslast45$Year)
+pollslast50 = polldata[polldata$EndDaysUntil < 50,]
+table(pollslast50$State, pollslast50$Year)
+table(polldata$State, polldata$Year)
+
+@
+
+
+<<>>=
+
+@
+
+<<>>=
+    polldatatemp = subset(polldata, polldata$EndDaysUntil < 100)
+    polls2008temp = subset(polldatatemp, Year == "2008")
+    polls2008temp = polls2008temp[complete.cases(polls2008temp[, c("Obama2008", "McCain", "observations","end_date")]),]
+    polls2012temp = subset(polldatatemp, Year == "2012")
+    polls2012temp = polls2012temp[complete.cases(polls2012temp[, c("Obama2012", "Romney", "observations", "end_date")]),]
+    polls2016temp = subset(polldatatemp, Year == "2016")
+    polls2016temp = polls2016temp[complete.cases(polls2016temp[, c("Trump", "Clinton", "observations", "end_date")]),]
+    polls2008ratemp = noniterativegaussianmodelprop(polls2008temp, stateloc = 17, proploc = c(9, 10), candidateloc = 10, nloc = 12, dateloc = 5, idloc = 1,  npolls = 10, invgamma = T, v0=1, a0=0.0001, b0=0.0001,  election_data = electdata[, c(1,4:5) ], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    polls2012ratemp = noniterativegaussianmodelprop(polls2012temp, stateloc = 17, proploc = c(34, 35), candidateloc = 35,  nloc = 12, dateloc = 5, idloc = 1,  npolls = 10,invgamma = T, v0=1, a0=0.0001, b0=0.0001,  election_data = electdata[c(1, 5:6)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    polls2016ratemp = noniterativegaussianmodelprop(polls2016temp, stateloc = 17, proploc = c(44, 45), candidateloc = 45, nloc = 12, dateloc = 5, idloc = 1,npolls = 10, invgamma = T, v0=1, a0=0.0001, b0=0.0001, election_data = electdata[c(1, 6:7)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+    error2008ra = ae_by_state(polls2008ratemp[, 1:2], results2008[-8, ])
+    error2012ra = ae_by_state(polls2012ratemp[-8, 1:2], results2012[-8, ])
+    error2016ra = ae_by_state(polls2016ratemp[-8, 1:2], results2016[-8, ])
+ae2008all = mean(error2008ra[,2])
+ae2012all = mean(error2012ra[,2])
+ae2016all = mean(error2016ra[,2])
+ae2008comp = mean(error2008ra[error2008ra[,1 ] %in% comp2008,2])
+ae2012comp = mean(error2012ra[error2012ra[,1 ] %in% comp2012,2])
+ae2016comp = mean(error2016ra[error2016ra[,1 ] %in% comp2016,2])
+mean(c(ae2008all, ae2012all, ae2016all))
+mean(c(ae2008comp, ae2012comp, ae2016comp))
+c(ae2008all, ae2012all, ae2016all)
+c(ae2008comp, ae2012comp, ae2016comp)
+cicoverage2008 = sum(polls2008ratemp$Margin.of.Error>ae_by_state(polls2008ratemp[, 1:2], results2008)[,2])/51
+cicoverage2012 = sum(polls2012ratemp$Margin.of.Error>ae_by_state(polls2012ratemp[, 1:2], results2012)[,2])/51
+cicoverage2016 = sum(polls2016ratemp$Margin.of.Error>ae_by_state(polls2016ratemp[, 1:2], results2016)[,2])/51
+mean(c(cicoverage2008, cicoverage2012, cicoverage2016))
+c(cicoverage2008, cicoverage2012, cicoverage2016)
+cbind(polls2008ratemp$Margin.of.Error,ae_by_state(polls2008ratemp[, 1:2], results2008))
+cbind(polls2012ratemp$Margin.of.Error,ae_by_state(polls2012ratemp[, 1:2], results2012))
+cbind(polls2016ratemp$Margin.of.Error,ae_by_state(polls2016ratemp[, 1:2], results2016))
+@
+
+
+
+
+\end{document}
