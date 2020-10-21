@@ -1,0 +1,631 @@
+\documentclass{article}
+
+\begin{document}
+These models don't work.
+Prep clusters
+<<>>=
+pres_results = propnormdfreplace(pres_results, c(4,5))
+pres_results$margin = pres_results$dem-pres_results$rep
+label7 = c("Strong Red", "Red", "Lean Red", "Competitive",
+           "Lean Blue", "Blue", "Strong Blue")
+elect1976 = subset(pres_results , year == 1976)
+elect1980 = subset(pres_results , year == 1980)
+elect1984 = subset(pres_results , year == 1984)
+elect1988 = subset(pres_results , year == 1988) 
+elect1992  = subset(pres_results , year == 1992)
+elect1996  = subset(pres_results , year == 1996)
+elect2000  = subset(pres_results , year == 2000)
+elect2004  = subset(pres_results , year == 2004)
+elect2008  = subset(pres_results , year == 2008)
+elect2012  = subset(pres_results , year == 2012)
+elect2016  = subset(pres_results , year == 2016)
+electdata = data.frame("state" = elect2008$state, "1976" = elect1976$margin, "1980" = elect1980$margin, "1984" = elect1984$margin, "1988" = elect1988$margin, "1992" =elect1992$margin, "1996" =elect1996$margin, "2000" = elect2000$margin, "2004" = elect2004$margin, "2008" =  elect2008$margin, "2012" = elect2012$margin, "2016" = elect2016$margin)
+resultsbystateminuspv = read.csv("resultsbystate-popularvote.csv")
+electdata = electdata[electdata$state != "DC",]
+priorassign1984 = getpriorassign(election_data = electdata[,1:3], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign1988 = getpriorassign(election_data = electdata[,c(1, 3:4)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign1992 = getpriorassign(election_data = electdata[,c(1, 4:5)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign1996 = getpriorassign(election_data = electdata[,c(1, 5:6)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign2000 = getpriorassign(election_data = electdata[,c(1, 6:7)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign2004 = getpriorassign(election_data = electdata[,c(1, 7:8)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign2008 = getpriorassign(election_data = electdata[,c(1, 8:9)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign2012 = getpriorassign(election_data = electdata[,c(1, 9:10)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+priorassign2016 = getpriorassign(election_data = electdata[,c(1, 10:11)], cutoffs = c(-.25, -.125, -0.075, 0.075, .125, .25))
+groupnames =  c("Strong Red", "Red", "Lean Red", "Competitive", "Lean Blue", "Blue", "Strong Blue")
+priormeans = matrix(NA,nrow = 7,  ncol = 9)
+for(i in 1:7){
+  statesingroup1984 = priorassign1984[priorassign1984[,2] == groupnames[i],1]
+  priormeans[i, 1] = mean(elect1984$dem[elect1984$state %in% statesingroup1984])
+  statesingroup1988 = priorassign1988[priorassign1988[,2] == groupnames[i],1]
+  priormeans[i, 2] = mean(elect1988$dem[elect1988$state %in% statesingroup1988])
+  statesingroup1992 = priorassign1992[priorassign1992[,2] == groupnames[i],1]
+  priormeans[i, 3] = mean(elect1992$dem[elect1992$state %in% statesingroup1992])
+  statesingroup1996 = priorassign1996[priorassign1996[,2] == groupnames[i],1]
+  priormeans[i, 4] = mean(elect1996$dem[elect1996$state %in% statesingroup1996])
+  statesingroup2000 = priorassign2000[priorassign2000[,2] == groupnames[i],1]
+  priormeans[i, 5] = mean(elect2000$dem[elect2000$state %in% statesingroup2000])
+  statesingroup2004 = priorassign2004[priorassign2004[,2] == groupnames[i],1]
+  priormeans[i, 6] = mean(elect2004$dem[elect2004$state %in% statesingroup2004])
+  statesingroup2008 = priorassign2008[priorassign2008[,2] == groupnames[i],1]
+  priormeans[i, 7] = mean(elect2008$dem[elect2008$state %in% statesingroup2008])
+  statesingroup2012 = priorassign2012[priorassign2012[,2] == groupnames[i],1]
+  priormeans[i, 8] = mean(elect2012$dem[elect2012$state %in% statesingroup2012])
+  statesingroup2016 = priorassign2016[priorassign2016[,2] == groupnames[i],1]
+  priormeans[i, 9] = mean(elect2016$dem[elect2016$state %in% statesingroup2016])
+}
+library(corpcor)
+priorclustermeanseverything2020 = rowMeans(priormeans, na.rm = T)
+priorclustercoveverything2020 = cov(t(priormeans), use= "pairwise.complete.obs")
+priorclustermeanscomplete2020 = rowMeans(priormeans[,5:9], na.rm = T)
+priorclustercovcomplete2020 = cov(t(priormeans[,5:9]), use = "pairwise.complete.obs")
+priorclustermeanseverything2016 = rowMeans(priormeans[,1:8], na.rm = T)
+priorclustercoveverything2016 = cov(t(priormeans[,1:8]) , use= "pairwise.complete.obs")
+priorclustermeanscomplete2016 = rowMeans(priormeans[,5:8], na.rm = T)
+priorclustercovcomplete2016 = cov(t(priormeans[,5:8]), use = "pairwise.complete.obs")
+priorclustermeanseverything2012 = rowMeans(priormeans[,1:7], na.rm = T)
+priorclustercoveverything2012 = cov(t(priormeans[,1:7]),  use= "pairwise.complete.obs")
+priorclustermeanscomplete2012 = rowMeans(priormeans[,5:7], na.rm = T)
+priorclustercovcomplete2012 = cov(t(priormeans[,5:7]), use = "pairwise.complete.obs")
+priorclustermeanseverything2008 = rowMeans(priormeans[,1:6], na.rm = T)
+priorclustercoveverything2008 = cov(t(priormeans[,1:6]) , use= "pairwise.complete.obs")
+priorclustermeanscomplete2008 = rowMeans(priormeans[,5:6], na.rm = T)
+priorclustercovcomplete2008 = cov(t(priormeans[,5:6]),  use = "na.or.complete", method = "kendall")
+priorclustercovcomplete2016pd = make.positive.definite(priorclustercoveverything2016)
+@
+
+<<>>=
+is.positive.definite(cov(t(electdata[,-1])))
+make.positive.definite(cov(t(electdata[,-1])))
+solve(make.positive.definite(cov(t(electdata[,-1]))))
+
+@
+
+
+Load in election and poll data
+<<>>=
+library(bayesurvey)
+library(politicaldata)
+polldata = read.csv("PollingDataSetStateLevelOnly7-17-20.csv")
+polldata$datavar = polldata$margin_of_error/1.96
+polls2008 = subset(polldata, Year == "2008")
+polls2008 = polls2008[complete.cases(polls2008[, c("Obama2008", "McCain", "observations", "end_date")]),]
+polls2012 = subset(polldata, Year == "2012")
+polls2012 = polls2012[complete.cases(polls2012[, c("Obama2012", "Romney", "observations", "end_date")]),]
+polls2016 = subset(polldata, Year == "2016")
+polls2016 = polls2016[complete.cases(polls2016[, c("Trump", "Clinton", "observations", "end_date")]),]
+elect1992  = subset(pres_results , year == 1992)
+elect1992$margin = elect1992$dem - elect1992$rep
+elect1996  = subset(pres_results , year == 1996)
+elect1996$margin = elect1996$dem - elect1996$rep
+elect2000  = subset(pres_results , year == 2000)
+elect2000$margin = elect2000$dem - elect2000$rep
+elect2004 = subset(pres_results , year == 2004)
+elect2004$margin = elect2004$dem - elect2004$rep
+elect2008  = subset(pres_results , year == 2008)
+elect2008$margin = elect2008$dem - elect2008$rep
+elect2012 = subset(pres_results , year == 2012)
+elect2012$margin = elect2012$dem - elect2012$rep
+elect2016 = subset(pres_results , year == 2016)
+elect2016$margin = elect2016$dem - elect2016$rep
+electdataformodel = data.frame("state" = elect2008$state, "1992" =elect1992$margin, "1996" =elect1996$margin, "2000" = elect2000$margin, "2004" = elect2004$margin, "2008" =  elect2008$margin, "2012" = elect2012$margin)
+electdata = electdata[-8,]
+stateloc = 16
+marginloc = 32
+dateloc = 5
+nloc = 6
+@
+
+
+<<>>=
+modelmvnclusters = function(poll_data, stateloc, proploc, candidateloc,  varloc = NULL, nloc, npolls = NULL, dateloc = NULL, clustermeans, clustercov, tauk = rep(1, nrow(poll_data)), a0i = 0.001, b0i = 0.001, a0j = 0.001, b0j = 0.001,nMCMC = 11000, burnin = 1000, election_data, cutoffs = c(-.25,-.125, -0.075, 0.075, .125, .25), groupnames = c("Strong Red", "Red", "Lean Red", "Competitive", "Lean Blue", "Blue", "Strong Blue")){
+  #step 1 get prior assignments
+  
+  #normalizes the polling data
+  newdf = propnormdfreplace(poll_data, proploc)
+  #gets the list of state names
+  statenames = unique(election_data[ , 1])
+  statenum = length(statenames)
+  
+  
+  #implementing last n polls
+  #Step 1: Loop over states
+  if(!is.null(npolls)){
+    lastpolls = numeric(0)
+    for(i in 1:length(statenames)){
+      #Step 2: For each state get index of last n polls and add to array of last polls
+      poll_temp = subset(newdf, newdf[, stateloc] == statenames[i])
+      poll_temp = poll_temp[order(poll_temp[, dateloc], decreasing = F), ]
+      if(nrow(poll_temp) > npolls){
+        lastpolls = c(lastpolls, poll_temp$X[1:npolls])
+      }
+      else{
+        lastpolls = c(lastpolls, poll_temp$X)
+      }
+      
+      #Step 3: redefine poll data
+      #go through original 
+      
+    }
+    tauk = tauk[newdf$X %in% lastpolls]
+    newdf = newdf[newdf$X %in% lastpolls, ]
+
+  }
+  #calls function to add the prior category to polls
+  priorout = addcategorytopolls(newdf, candidateloc,  stateloc, election_data, cutoffs, groupnames)
+  
+  #saves data frame with the categories
+  finaldf = priorout$new_poll_data
+  #gets the prior mean from the add categories output
+  priormeans = priorout$priormean
+  assignments = priorout$assignment
+  nclusters = length(groupnames)
+  #initialize posterior mean and variance
+  statemeansMCMC = matrix(NA, nrow = statenum, ncol = nMCMC) 
+  clustermeansMCMC = matrix(NA, nrow = nclusters, ncol = nMCMC)
+  statevarMCMC = matrix(NA, nrow = statenum, ncol = nMCMC)
+  clustervarMCMC = matrix(NA, nrow = nclusters, ncol = nMCMC)
+
+  winprob = rep(NA, statenum)
+  npollstate = rep(NA, statenum)
+  njmpolls = rep(NA, nclusters)
+  njmstates = rep(NA, nclusters)
+
+  #invert sigmaC
+  clustercovinverse = solve(clustercov)
+    for(i in 1:statenum){
+    #get number of polls in state i
+    npollstate[i] = sum(finaldf[, stateloc] == statenames[i])
+    }
+  stateswithnopolls = statenames[which(npollstate == 0, arr.ind = T)]
+  stateswithpolls = statenames[which(npollstate > 0, arr.ind = T)]
+  assignmentsforstateswithpolls = assignments[assignments[,1] %in% stateswithpolls, ]
+  for(i in 1:nclusters){
+    #get numberof polls for states in cluster m
+    njmpolls[i] = sum((finaldf$priorcat == groupnames[i]))
+    #
+    njmstates[i] = nrow(assignmentsforstateswithpolls[assignmentsforstateswithpolls[,2] == groupnames[i],])
+  }
+
+  stateswithnopolls = statenames[which(npollstate == 0)]
+  mujtemp = priormeans
+  muitemp = election_data[, ncol(election_data)]/2+.5
+  sigmaitemp = rep(0.03, statenum)
+  sigmajtemp = priorout$priorvar
+  for(k in 1:nMCMC){
+    for(j in 1:nclusters){
+      # a parameter for inversegamma
+     iga = a0j + njmpolls[j]/2
+     # b parameter for inversegamma
+     igb = b0j + sum((muitemp[statenames %in% assignmentsforstateswithpolls[assignmentsforstateswithpolls[,2] == groupnames[j], 1]]-mujtemp[j])^2)/2
+     #MCMC draw for sigmaj
+     sigmajtemp[j] = rinvgamma(1, iga, igb)
+     clustervarMCMC[j, k] = sigmajtemp[j]
+     #get the average of state means in cluster j
+     muij = mean(muitemp[statenames %in% assignmentsforstateswithpolls[assignmentsforstateswithpolls[,2] == groupnames[j], 1]])
+     #get the summation term over all the other clusters
+     sumfornormj = sum(clustercovinverse[j,-j]*(mujtemp[-j]-clustermeans[-j]))
+     #normal mean for muj draw
+     normmeanj = ((njmstates[j]/sigmajtemp[j] + clustercovinverse[j,j])^-1)*((njmstates[j]/sigmajtemp[j])*muij+clustercovinverse[j,j]*clustermeans[j]+sumfornormj)
+     normvarj = (njmstates[j]/sigmajtemp[j] + clustercovinverse[j,j])^-1
+     mujtemp[j] = rnorm(1, mean = normmeanj, sd = sqrt(normvarj))
+     clustermeansMCMC[j, k] = mujtemp[j]
+    }
+    for(i in 1:statenum){
+      groupnametemp = assignments[assignments[, 1] == statenames[i] , 2] 
+      groupnameloc = which(groupnames == groupnametemp, arr.ind = T)
+      if(npollstate[i] == 0){
+        next
+      }
+      else{
+        
+        #normmeani = ((1/sigmajtemp[groupnameloc] + (1/sigmaitemp[i]*sum(tauk[poll_data[,stateloc] == statenames[i]])))^-1)*((1/sigmaitemp[i])*(sum(poll_data[poll_data[,stateloc] == statenames[i],candidateloc]/tauk[poll_data[,stateloc] == statenames[i]]))+mujtemp[groupnameloc]/sigmajtemp[groupnameloc])
+        normmeani= (sigmaitemp[i]/(npollstate[i]*sigmajtemp[groupnameloc]+sigmaitemp[i]))*mujtemp[groupnameloc]+(npollstate[i]*sigmajtemp[groupnameloc])/(npollstate[i]*sigmajtemp[groupnameloc]+sigmaitemp[i])*(sum(finaldf[finaldf[,stateloc] == statenames[i],candidateloc]/tauk[finaldf[,stateloc] == statenames[i]])/npollstate[i])
+        normvari = (1/sigmajtemp[groupnameloc] + 1/(2*sigmaitemp[i]*sum(tauk[finaldf[,stateloc] == statenames[i]])))^-1
+        muitemp[i] = rnorm(1, mean = normmeani, sd = sqrt(normvari))
+        statemeansMCMC[i,k] = muitemp[i]
+        iga = a0i + npollstate[i]/2
+        igb = b0i + 0.5*sum((finaldf[finaldf[,stateloc] == statenames[i],candidateloc]- muitemp[i])^2/tauk[finaldf[,stateloc] == statenames[i]])
+        sigmaitemp[i] = rinvgamma(1, iga, igb)
+        statevarMCMC[i,k] = sigmaitemp[i]
+      }
+    }
+    if(k %% 50 == 0){
+      print(k)
+    }
+  }
+  poststatemeans = rowMeans(statemeansMCMC[,(burnin+1):nMCMC])
+  poststatevar = rowMeans(statevarMCMC[,(burnin+1):nMCMC])
+  postclustermeans = rowMeans(clustermeansMCMC[,(burnin+1):nMCMC])
+  postclustervar = rowMeans(clustervarMCMC[,(burnin+1):nMCMC])
+  groupnamesstateswithnopolls = assignments[assignments[,1] %in% stateswithnopolls,2]
+  poststatemeans[which(statenames %in% stateswithnopolls, arr.ind = T)] = postclustermeans[groupnamesstateswithnopolls]
+  poststatevar[which(statenames %in% stateswithnopolls, arr.ind = T)] = postclustervar[groupnamesstateswithnopolls]
+  return(list(statenames = statenames, poststatemeans = poststatemeans, poststatevar = poststatevar, postclustermeans = postclustermeans, postclustervar = postclustervar, winprob = winprob, statemeansMCMC = statemeansMCMC, statevarMCMC = statevarMCMC, clustermeansMCMC= clustermeansMCMC, clustervarMCMC = clustervarMCMC))
+}
+
+@
+
+
+
+<<>>=
+modelstatesmvn = function(poll_data, stateloc, proploc, candidateloc, idloc, varloc = NULL, nloc, npolls = NULL, dateloc = NULL, statepriormeans, statepriorcov, tauk = rep(1, nrow(poll_data)), a0i = 1.01, b0i = 1.01, nMCMC = 11000, burnin = 1000){
+    #normalizes the polling data
+  newdf = propnormdfreplace(poll_data, proploc)
+  #gets the list of state names
+  statenum = length(statepriormeans[,1])
+  statenames = statepriormeans[,1]
+  
+  #implementing last n polls
+  #Step 1: Loop over states
+  if(!is.null(npolls)){
+    lastpolls = numeric(0)
+    for(i in 1:length(statenames)){
+      #Step 2: For each state get index of last n polls and add to array of last polls
+      poll_temp = subset(newdf, newdf[, stateloc] == statenames[i])
+      poll_temp = poll_temp[order(poll_temp[, dateloc], decreasing = T), ]
+      if(nrow(poll_temp) > npolls){
+        lastpolls = c(lastpolls, poll_temp[1:10, idloc])
+      }
+      else{
+        lastpolls = c(lastpolls, poll_temp[, idloc])
+      }
+      
+      #Step 3: redefine poll data
+      #go through original 
+      
+    }
+    tauk = tauk[newdf[, idloc] %in% lastpolls]
+    newdf = newdf[newdf[, idloc] %in% lastpolls, ]
+
+  }
+  finaldf = newdf
+
+  #initialize posterior mean and variance
+  statemeansMCMC = matrix(NA, nrow = statenum, ncol = nMCMC) 
+  statevarMCMC = matrix(NA, nrow = statenum, ncol = nMCMC)
+
+  winprob = rep(NA, statenum)
+  npollstate = rep(NA, statenum)
+  statecovinverse = solve(statepriorcov[,-1])
+  #statepriorcov = statepriorcov[colnames(statepriorcov) %in% statenames, (colnames(statepriorcov) %in% statenames)[-1]]
+  priorstatemeans = statepriormeans[,2]
+  #statecovinverse = statecovinverse[rownames(statecovinverse) %in% statenames, rownames(statecovinverse) %in% statenames]
+  muitemp = priorstatemeans
+  sigmaitemp = as.numeric(diag(as.matrix(statepriorcov)[, -1]))
+  #invert sigmaC
+
+    for(i in 1:statenum){
+    #get number of polls in state i
+    npollstate[i] = sum(finaldf[, stateloc] == statenames[i])
+    #tauk = nrow(poll_temp)*poll_temp[,weightloc]/sum(poll_temp[, weightloc])
+
+    }
+  stateswithnopolls = statenames[which(npollstate == 0, arr.ind = T)]
+  stateswithpolls = statenames[which(npollstate > 0, arr.ind = T)]
+  for(k in 1:nMCMC){
+    for(i in 1:statenum){
+      if(npollstate[i] == 0){
+        muitemp[i] = rnorm(1, mean = priorstatemeans[i], sd = sqrt(sigmaitemp[i]))
+        statemeansMCMC[i,k] = muitemp[i]
+      }
+      else{
+        
+        #normmeani = ((1/sigmajtemp[groupnameloc] + (1/sigmaitemp[i]*sum(tauk[poll_data[,stateloc] == statenames[i]])))^-1)*((1/sigmaitemp[i])*(sum(poll_data[poll_data[,stateloc] == statenames[i],candidateloc]/tauk[poll_data[,stateloc] == statenames[i]]))+mujtemp[groupnameloc]/sigmajtemp[groupnameloc])
+        iga = a0i + npollstate[i]/2
+        igb = b0i + 0.5*sum((finaldf[finaldf[,stateloc] == statenames[i],candidateloc]- muitemp[i])^2/tauk[finaldf[,stateloc] == statenames[i]])
+        sigmaitemp[i] = rinvgammatrun2(1, iga, igb, 0.125)
+
+        statevarMCMC[i,k] = sigmaitemp[i]
+        sumfornormal = sum(statecovinverse[i,-i]*(muitemp[-i]-priorstatemeans[-i]))
+        normmeani= ((statecovinverse[i,i]+sum(1/(sigmaitemp[i]*tauk[poll_data[,stateloc] == statenames[i]])))^-1)*((sum(poll_data[poll_data[,stateloc] == statenames[i],candidateloc]/(sigmaitemp[i]*tauk[poll_data[,stateloc] == statenames[i]])))+sumfornormal+statecovinverse[i,i]*priorstatemeans[i])
+        normvari = (statecovinverse[i,i]+sum(1/(sigmaitemp[i]*tauk[poll_data[,stateloc] == statenames[i]])))^-1
+        muitemp[i] = rnorm(1, mean = normmeani, sd = sqrt(normvari))
+        statemeansMCMC[i,k] = muitemp[i]
+      }
+    }
+    if(k %% 100 == 0){
+      print(k)
+    }
+  }
+  poststatemeans = rowMeans(statemeansMCMC[,(burnin+1):nMCMC])
+  poststatevar = rowMeans((statemeansMCMC[,(burnin+1):nMCMC]-poststatemeans)^2)
+  poststatesd = sqrt(poststatevar)
+  statewinmat = statemeansMCMC[,(burnin+1):nMCMC] > .50
+  evvotemat = statewinmat*electoralvotes$Electoral.Votes
+  winprob = mean(colSums(((statemeansMCMC[,(burnin+1):nMCMC] > .50)*electoralvotes$Electoral.Votes))>270)
+  statewinprobability = rowMeans(statemeansMCMC[,(burnin+1):nMCMC] > .50)
+  df = data.frame(state = statenames, means = poststatemeans, poststatevar = poststatevar, poststatesd = poststatesd, statewinprobability = statewinprobability)
+  
+  return(list(df = df, statenames = statenames, poststatemeans = poststatemeans, poststatevar = poststatevar, winprob = winprob, statemeansMCMC = statemeansMCMC, statevarMCMC = statevarMCMC, statewinmat = statewinmat, evvotemat = evvotemat))
+}
+
+  
+@
+
+
+<<>>=
+electoralvotes = read.csv("electoralvotes.csv")
+@
+
+
+Prep for new model
+<<>>=
+priorstatemeans = elect2012[, c("state", "dem")]
+priorstatecov = read.csv("mystatecovmatrix.csv")
+priorstatecov = priorstatecov
+library(MCMCpack)
+library(bayesurvey)
+statemodeltest1_2016_quick = modelstatesmvn(polls2016, stateloc = 17,  proploc = c(21:22), candidateloc = 21, nloc = 6, idloc = 1, dateloc = 20, npolls =10, statepriormeans = priorstatemeans, statepriorcov = priorstatecov, nMCMC = 1100, burnin = 100)
+
+@
+
+<<>>=
+statemodeltest1df_2016 = data.frame(state = as.character(statemodeltest1_2016$statenames), mean = statemodeltest1_2016$poststatemean)
+mean(statemodeltest1df_2016$mean - elect2016$dem)
+@
+
+
+2020 test
+<<>>=
+source("2020model.R")
+priorstatemeans = elect2016[, c("state", "dem")]
+independentcovmat = cbind(priorstatecov[,1],diag(diag(as.matrix(priorstatecov[, -1]))))
+
+test2020independent =modelstatesmvn(dataeconnew, stateloc = 1,  proploc = c(29:30), candidateloc = 29, nloc = 6,  statepriormeans = priorstatemeans, statepriorcov = independentcovmat, nMCMC = 11000, burnin = 1000)
+
+#test2020_debug =modelstatesmvn(dataeconnew, stateloc = 1,  proploc = c(29:30), candidateloc = 30, nloc = 6,  statepriormeans = priorstatemeans, statepriorcov = priorstatecov, nMCMC = 10, burnin = 1)
+
+@
+
+
+<<>>=
+priorstatemeans2008 = elect2004[, c("state", "dem")]
+statemodeltest1_2008independent = modelstatesmvn(polls2008, stateloc = 17,  proploc = c(21:22), candidateloc = 21, nloc = 6,  idloc = 1,  statepriormeans = priorstatemeans2008, statepriorcov = priorstatecov, nMCMC = 16000, burnin = 1000)
+priorstatemeans2012 = elect2008[, c("state", "dem")]
+polls2012last60 = polls2012[polls2012$MidDaysUntil < 100, ]
+statemodeltest1_2012independent = modelstatesmvn(polls2012last60, stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6,idloc = 1,    statepriormeans = priorstatemeans2012, statepriorcov = priorstatecov,  a0i = 1.01, b0i = 1.01, nMCMC = 16000, burnin = 1000)
+priorstatemeans2016 = elect2012[, c("state", "dem")]
+priorstatecov = read.csv("mystatecovmatrix.csv")
+priorstatecov = priorstatecov
+library(MCMCpack)
+library(bayesurvey)
+statemodeltest1_2016independent = modelstatesmvn(polls2016, stateloc = 17,  proploc = c(21:22), candidateloc = 21, nloc = 6, idloc = 1, statepriormeans = priorstatemeans2016, statepriorcov = priorstatecov, nMCMC = 16000, burnin = 1000)
+
+@
+
+
+
+<<>>=
+priorstatemeans2012 = elect2008[, c("state", "dem")]
+polls2012last60 = polls2012[polls2012$MidDaysUntil < 100, ]
+statemodeltest1_2012 = modelstatesmvn(polls2012last60, stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6,  statepriormeans = priorstatemeans2012, statepriorcov = priorstatecov, npolls = 10,  a0i = 1.01, b0i = 1.01, nMCMC = 11000, burnin = 1000)
+
+
+@
+
+<<>>=
+statemodeltest1_2012df = data.frame(state = statemodeltest1_2012$statenames, dem = statemodeltest1_2012$poststatemeans)
+ae_by_state(statemodeltest1_2012df[order(statemodeltest1_2012df$state), ], results2012)
+mean(ae_by_state(statemodeltest1_2012df[order(statemodeltest1_2012df$state), ], results2012)[-7,2])
+
+@
+
+
+<<>>=
+statemodeltest1_2016df = data.frame(state = statemodeltest1_2016$statenames, dem = statemodeltest1_2016$poststatemeans)
+ae_by_state(statemodeltest1_2016df[order(statemodeltest1_2016df$state), ], results2016)
+mean(ae_by_state(statemodeltest1_2016df[order(statemodeltest1_2016df$state), ], results2016)[-7,2])
+
+@
+
+
+
+
+<<>>=
+priorstatemeans2008 = elect2004[, c("state", "dem")]
+polls2008last100=polls2008[polls2008$MidDaysUntil < 100, ]
+statemodeltest1_2008 = modelstatesmvn(polls2008last100, stateloc = 17,  proploc = c(21:22), candidateloc = 21, nloc = 6,  idloc = 1,  statepriormeans = priorstatemeans2008, statepriorcov = priorstatecov, nMCMC = 16000, burnin = 1000)
+priorstatemeans2012 = elect2008[, c("state", "dem")]
+polls2012last60 = polls2012[polls2012$MidDaysUntil < 100, ]
+statemodeltest1_2012 = modelstatesmvn(polls2012last60, stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6,idloc = 1, npolls =10,   statepriormeans = priorstatemeans2012, statepriorcov = priorstatecov,  a0i = 1.01, b0i = 1.01, nMCMC = 16000, burnin = 1000)
+priorstatemeans = elect2012[, c("state", "dem")]
+priorstatecov = read.csv("mystatecovmatrix.csv")
+priorstatecov = priorstatecov
+library(MCMCpack)
+library(bayesurvey)
+statemodeltest1_2016 = modelstatesmvn(polls2016, stateloc = 17,  proploc = c(21:22), candidateloc = 21, nloc = 6, idloc = 1, statepriormeans = priorstatemeans, statepriorcov = priorstatecov, nMCMC = 16000, burnin = 1000)
+
+@
+
+
+<<>>=
+statemodeltest1_2008df = data.frame(state = statemodeltest1_2008$statenames, dem = statemodeltest1_2008$poststatemeans)
+ae_by_state(statemodeltest1_2008df[order(statemodeltest1_2008df$state), ], results2008)
+mean(ae_by_state(statemodeltest1_2008df[order(statemodeltest1_2008df$state), ], results2008)[-7,2])
+statemodeltest1_2012df = data.frame(state = statemodeltest1_2012$statenames, dem = statemodeltest1_2012$poststatemeans)
+ae_by_state(statemodeltest1_2012df[order(statemodeltest1_2012df$state), ], results2012)
+mean(ae_by_state(statemodeltest1_2012df[order(statemodeltest1_2012df$state), ], results2012)[-7,2])
+statemodeltest1_2016df = data.frame(state = statemodeltest1_2016$statenames, dem = statemodeltest1_2016$poststatemeans)
+ae_by_state(statemodeltest1_2016df[order(statemodeltest1_2016df$state), ], results2016)
+mean(ae_by_state(statemodeltest1_2008df[order(statemodeltest1_2008df$state), ], results2008)[-7,2])
+mean(ae_by_state(statemodeltest1_2012df[order(statemodeltest1_2012df$state), ], results2012)[-7,2])
+mean(ae_by_state(statemodeltest1_2016df[order(statemodeltest1_2016df$state), ], results2016)[-7,2])
+@
+
+<<>>=
+statemodeltest1_2008df$statevars = rowMeans((statemodeltest1_2008$statemeansMCMC[,1001:15000]-statemodeltest1_2008df$dem)^2)
+statemodeltest1_2012df$statevars = rowMeans((statemodeltest1_2012$statemeansMCMC[,1001:15000]-statemodeltest1_2012df$dem)^2)
+statemodeltest1_2016df$statevars = rowMeans((statemodeltest1_2016$statemeansMCMC[,1001:15000]-statemodeltest1_2016df$dem)^2)
+
+statemodeltest1_2008df$statesd = sqrt(statemodeltest1_2008df$statevars)
+statemodeltest1_2012df$statesd = sqrt(statemodeltest1_2012df$statevars)
+statemodeltest1_2016df$statesd = sqrt(statemodeltest1_2016df$statevars)
+statemodeltest1_2008df
+statemodeltest1_2012df
+statemodeltest1_2016df
+@
+
+
+<<>>=
+library(MCMCpack)
+modelmvnclusters(polls2016,  stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6,  clustermeans = priorclustercovcomplete2016, clustercov = priorclustercoveverything2016, tauk = rep(1, nrow(polls2016)), nMCMC =300, burnin = 10, election_data = electdataformodel[, c(1, 4:5)])
+@
+
+
+
+<<>>=
+IVtrunc=function(x,a,b){
+con=a*log(b)-lgamma(a)
+D=1-pgamma(b,shape=a,rate=1)
+con=exp(con)/D
+f=con*x^(-a-1)*exp(-b/x)
+plot(x,f,type='l',main=paste('a = ',a,'  b = ',b))
+f
+}
+x= seq(0,0.25, 0.0001)
+
+
+
+densityIV=function(x, a,b){
+  con=a*log(b)-lgamma(a)
+  D=1-pgamma(b,shape=a,rate=1)
+  con=exp(con)/D
+  f=con*x^(-a-1)*exp(-b/x)
+  return(f)
+}
+densityIV2 =  function(x, a,b, trun){
+  con=1/integrate(dinvgamma, 0 , trun, shape = a, scale = b)$value
+  f=con*x^(-a-1)*exp(-b/x)*(b^a)/gamma(a)*(x< trun)
+  return(f)
+}
+y1 = densityIV2(x,1,1)
+y2 = densityIV(x,1,1)
+
+
+
+library(MCMCpack)
+densityratio = function(a,b,x, trun){
+  density = densityIV2(x,a,b, trun)/dinvgamma(x,a,b)
+  return(density)
+}
+x2 = seq(0, 10, 0.001)
+densityratio(1,1,x2, 0.25)
+
+@
+
+
+Truncated invgamma sampling
+<<>>=
+library(MCMCpack)
+
+#sample size
+#a shape
+#b scale
+#trun truncation point
+rinvgammatrun = function(n, a, b, trun){
+  x= seq(0, trun, 0.0001)
+  M=max(densityratio(a,b,x, trun), na.rm = T)
+  samples = rep(NA, n)
+  for(i in 1:n){
+    count = 1
+    while(is.na(samples[i])){
+      u = runif(1, 0, 1)
+      x = rinvgamma(1, a,b)
+      ratio =  densityIV2(x,a,b, trun)/(M*dinvgamma(x,a,b))
+      if(u < ratio){
+        samples[i] = x
+      }
+      count = count + 1
+      if(count %% 10000 == 0){
+      print(paste("Warning: rinvgammatrun stuck at count:" , count))
+      print(a)
+      print(b)
+    }
+    }
+  }
+  return(samples)
+}
+library(truncdist)
+rinvgammatrun2 = function(n, a, b, trun){
+  for(i in 1:n){
+    count = 1
+    samples = 1/rtrunc(n, "gamma", a = 1/trun, b = Inf, shape = a, scale = 1/b)
+    }
+  return(samples)
+}
+#t1 = rinvgammatrun(10000, 1, 1, 0.25)
+#t2 = rinvgammatrun2(10000, 1, 1, 0.25)
+rinvgammatrun2(10, 1, 1, 0.25)
+#library(microbenchmark)
+#microbenchmark(rinvgammatrun(1000, 1, 1, 0.25))
+@
+
+
+Find supremum
+2.718
+<<>>=
+1/rtrunc(100, "gamma", a = 1, b = Inf, shape = 4, scale = 1/12)
+@
+
+
+
+
+
+
+
+
+<<>>=
+library(MCMCpack)
+set.seed(5)
+testrun2016_9_8_20=modelmvnclusters(polls2016,  stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6,  clustermeans = priorclustermeanseverything2016, clustercov = priorclustercoveverything2016, tauk = rep(1, nrow(polls2016)), nMCMC =11000, burnin = 1000, election_data = electdataformodel[, c(1, 6:7)])
+testrun2016_9_8_20only5polls=modelmvnclusters(polls2016,  stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6, npolls = 5, dateloc = 20,  clustermeans = priorclustermeanseverything2016, clustercov = priorclustercoveverything2016, tauk = rep(1, nrow(polls2016)), nMCMC =100, burnin = 1, election_data = electdataformodel[, c(1, 6:7)])
+
+@
+
+<<>>=
+polls2016last60days = polls2016$MidDaysUntil<60
+
+@
+
+
+<<>>=
+testrun2012_9_8_20=modelmvnclusters(polls2012,  stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6,  clustermeans = priorclustermeanscomplete2012, clustercov = priorclustercoveverything2016, tauk = rep(1, nrow(polls2012)), nMCMC =101, burnin = 1, election_data = electdataformodel[, c(1, 5:6)])
+
+
+testrun2008_9_8_20=modelmvnclusters(polls2008,  stateloc = 17, proploc = c(21:22), candidateloc = 21, nloc = 6,  clustermeans = priorclustermeanscomplete2008, clustercov = priorclustercoveverything2016, tauk = rep(1, nrow(polls2008)), nMCMC =11000, burnin = 1000, election_data = electdataformodel[, c(1, 4:5)])
+@
+
+
+<<>>=
+testrun2016poststatemeans = data.frame(state = as.character(testrun2016_9_8_20$statenames), mean = testrun2016_9_8_20$poststatemeans)
+mean(testrun2016poststatemeans$mean - elect2016[-8,]$dem)
+testrun2016poststatemeans = data.frame(state = as.character(testrun2016_9_8_20only5polls$statenames), mean = testrun2016_9_8_20only5polls$poststatemeans)
+mean(testrun2016poststatemeans$mean - elect2016[-8,]$dem)
+
+noniterativeall2016 = noniterativegaussianmodelprop(polls2016, stateloc = 17, proploc = c(21,22), candidateloc = 21, nloc = 6, election_data = electdata[, c(1, 6:7)])
+mean(noniterativeall2016$Posterior.Mean - elect2016[-8,])
+
+
+noniterativeall2008error = ae_by_state(noniterativeall2008[, 1:2], results2008)
+noniterativeall2012error = ae_by_state(noniterativeall2012[, 1:2], results2012)
+noniterativeall2016error = ae_by_state(noniterativeall2016[, 1:2], results2016)
+noniterativealltotal = cbind(noniterativeall2008error[, 1:2], noniterativeall2012error[, 2], noniterativeall2016error[,2], rowMeans(cbind(noniterativeall2008error[,2], noniterativeall2012error[, 2], noniterativeall2016error[,2])))
+colnames(noniterativealltotal) = c("state", "2008", "2012", "2016", "Average")
+@
+
+
+
+<<>>=
+a0i = 0.001
+b0i = 0.001
+
+for(i in 1:50){
+  iga = a0i + npollstate[i]/2
+  igb = b0i + sum((poll_data[poll_data[,stateloc] == statenames[i],candidateloc]- muitemp[i]^2)/tauk[poll_data[,stateloc] == statenames[i]])
+
+}
+@
+
+
+
+\end{document}
